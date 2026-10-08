@@ -1,0 +1,15 @@
+{
+  "name": "scroll-wheel-radio",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "A Y2K click-wheel music player for the browser that plays music from YouTube.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^6.0.0"
+  }
+}

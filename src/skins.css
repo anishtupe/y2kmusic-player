@@ -1,0 +1,183 @@
+/* skins.css — Settings › Skins. Each skin sets the shell, the wheel and the page background.
+   The screen UI stays the classic white + blue so it's always readable. */
+
+/* ------------------------------------------------------------ Chrome Silver (default) */
+body,
+body[data-skin='chrome'] {
+  --page-bg: #b9b3e8;
+  --holo: linear-gradient(120deg, #c7d2fe, #f5c2ff, #b5f2ff, #e9d5ff, #fde2f3, #c7d2fe);
+  --holo-screen: linear-gradient(135deg, #c7d2fe, #f5c2ff 45%, #b5f2ff);
+  --check-a: rgba(255, 255, 255, 0.35);
+  --check-b: rgba(160, 140, 230, 0.25);
+  --glow: #a98bff;
+  --body-bg: linear-gradient(135deg, #fbfcfe 0%, #cfd7e3 20%, #f3f6fa 42%, #a9b4c4 68%, #e8edf3 86%, #c3ccd8 100%);
+  --body-edge: rgba(120, 132, 150, 0.6);
+  --bezel: linear-gradient(180deg, #4d5562, #2a2f37);
+  --wheel-bg: radial-gradient(circle at 50% 35%, #ffffff 0%, #eef1f5 45%, #d6dce5 100%);
+  --wheel-ring: rgba(120, 132, 150, 0.45);
+  --wheel-label: #8994a6;
+  --center-bg: linear-gradient(180deg, #f4f6f9, #cdd4de);
+  --logo-color: #6f7a8c;
+  --accent: #a96bff;
+}
+
+/* ------------------------------------------------------------ Bubblegum Pink */
+body[data-skin='bubblegum'] {
+  --page-bg: #ff9ad5;
+  --holo: linear-gradient(120deg, #ffb3e1, #ffd6f0, #ff8ccf, #e8b4ff, #ffc2e6, #ffb3e1);
+  --holo-screen: linear-gradient(135deg, #ffb3e1, #ffe1f3 50%, #e8b4ff);
+  --check-a: rgba(255, 255, 255, 0.4);
+  --check-b: rgba(255, 90, 180, 0.22);
+  --glow: #ff4fae;
+  --body-bg: linear-gradient(140deg, #ffe0f1 0%, #ff9fd3 30%, #ffc4e5 50%, #ff7cc2 78%, #ffb6dd 100%);
+  --body-edge: rgba(214, 60, 140, 0.55);
+  --bezel: linear-gradient(180deg, #7a2457, #4a1033);
+  --wheel-bg: radial-gradient(circle at 50% 35%, #fff4fa 0%, #ffe0f0 55%, #ffc7e4 100%);
+  --wheel-ring: rgba(214, 60, 140, 0.4);
+  --wheel-label: #e0559f;
+  --center-bg: linear-gradient(180deg, #ffd0ea, #ff8fcb);
+  --logo-color: #c93a8a;
+  --accent: #ff2e93;
+}
+
+/* ------------------------------------------------------------ Frosted Lime */
+body[data-skin='lime'] {
+  --page-bg: #a9f06a;
+  --holo: linear-gradient(120deg, #d4ff8a, #8ff7d2, #f3ff9e, #9ff0ff, #d9ffb0, #d4ff8a);
+  --holo-screen: linear-gradient(135deg, #d4ff8a, #f3ffd0 50%, #8ff7d2);
+  --check-a: rgba(255, 255, 255, 0.45);
+  --check-b: rgba(120, 190, 30, 0.22);
+  --glow: #7bd400;
+  --body-bg:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0) 40%),
+    linear-gradient(140deg, #ecffbf 0%, #c3f25a 35%, #dcff8f 55%, #9fde2c 85%, #c8f560 100%);
+  --body-edge: rgba(100, 150, 20, 0.55);
+  --bezel: linear-gradient(180deg, #3d5a12, #22340a);
+  --wheel-bg: radial-gradient(circle at 50% 35%, rgba(255, 255, 255, 0.95), rgba(245, 255, 220, 0.85) 55%, rgba(220, 245, 170, 0.85));
+  --wheel-ring: rgba(100, 150, 20, 0.4);
+  --wheel-label: #5f8f0c;
+  --center-bg: linear-gradient(180deg, #f6ffe0, #c9ef7a);
+  --logo-color: #4f7a08;
+  --accent: #3fae00;
+}
+
+body[data-skin='lime'] .device {
+  backdrop-filter: blur(6px);
+}
+
+/* ------------------------------------------------------------ Midnight Glitter */
+body[data-skin='midnight'] {
+  --page-bg: #0d0826;
+  --holo: radial-gradient(ellipse at 20% 20%, #3b1d7a 0%, transparent 50%), radial-gradient(ellipse at 80% 70%, #5a1a6e 0%, transparent 55%),
+    linear-gradient(160deg, #0d0826, #1a1145 50%, #0b0620);
+  --holo-screen: linear-gradient(135deg, #2a1b6e, #6b2a8f 50%, #1a1145);
+  --check-a: rgba(255, 255, 255, 0.04);
+  --check-b: rgba(160, 120, 255, 0.07);
+  --pattern-opacity: 0.6;
+  --glow: #c79bff;
+  --body-bg:
+    radial-gradient(circle at 20% 15%, rgba(255, 255, 255, 0.9) 0 0.8px, transparent 1.4px) 0 0 / 23px 29px,
+    radial-gradient(circle at 70% 60%, rgba(255, 210, 255, 0.85) 0 0.7px, transparent 1.3px) 0 0 / 31px 19px,
+    radial-gradient(circle at 40% 80%, rgba(180, 220, 255, 0.8) 0 0.9px, transparent 1.5px) 0 0 / 17px 37px,
+    linear-gradient(150deg, #2b2170 0%, #1a1440 40%, #3a2a7a 75%, #1f1650 100%);
+  --body-edge: rgba(190, 160, 255, 0.5);
+  --bezel: linear-gradient(180deg, #0b0820, #000);
+  --wheel-bg:
+    radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.85) 0 0.8px, transparent 1.4px) 0 0 / 19px 23px,
+    radial-gradient(circle at 50% 35%, #3d3290 0%, #2a2163 60%, #1d1749 100%);
+  --wheel-ring: rgba(190, 160, 255, 0.45);
+  --wheel-label: #d4c6ff;
+  --center-bg: linear-gradient(180deg, #4a3ea6, #2a2163);
+  --logo-color: #ffd6ff;
+  --accent: #ff7ae0;
+}
+
+body[data-skin='midnight'] .device::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    radial-gradient(circle, #fff 0 1px, transparent 1.6px) 7px 11px / 47px 53px,
+    radial-gradient(circle, #ffd6ff 0 1px, transparent 1.6px) 29px 31px / 61px 43px;
+  animation: glitter 2.4s steps(4) infinite;
+  z-index: 0;
+}
+
+@keyframes glitter {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 0.95;
+  }
+}
+
+body[data-skin='midnight'] .brand-mark,
+body[data-skin='midnight'] .brand-name {
+  text-shadow: 0 0 8px rgba(255, 122, 224, 0.8);
+}
+
+body[data-skin='midnight'] .wheel,
+body[data-skin='midnight'] .center {
+  box-shadow:
+    inset 0 2px 3px rgba(255, 255, 255, 0.25),
+    inset 0 -3px 8px rgba(0, 0, 0, 0.4),
+    0 0 0 1px var(--wheel-ring),
+    0 0 18px rgba(170, 120, 255, 0.35);
+}
+
+body[data-skin='midnight'] .bg-badge,
+body[data-skin='midnight'] .sparkle {
+  --glow: #c79bff;
+}
+
+/* ------------------------------------------------------------ Translucent Ice (see-through) */
+body[data-skin='ice'] {
+  --page-bg: #bfe8ff;
+  --holo: linear-gradient(120deg, #dff5ff, #b8e6ff, #e8f0ff, #a5f0ff, #d9e8ff, #dff5ff);
+  --holo-screen: linear-gradient(135deg, #b8e6ff, #f0faff 50%, #c9d8ff);
+  --check-a: rgba(255, 255, 255, 0.5);
+  --check-b: rgba(120, 190, 255, 0.2);
+  --glow: #5ec8ff;
+  --body-bg: linear-gradient(140deg, rgba(220, 245, 255, 0.55), rgba(150, 215, 255, 0.28) 45%, rgba(200, 235, 255, 0.45));
+  --body-edge: rgba(255, 255, 255, 0.85);
+  --bezel: linear-gradient(180deg, rgba(30, 60, 90, 0.85), rgba(10, 30, 50, 0.9));
+  --wheel-bg: radial-gradient(circle at 50% 35%, rgba(255, 255, 255, 0.55), rgba(220, 240, 255, 0.35) 60%, rgba(190, 225, 255, 0.4));
+  --wheel-ring: rgba(255, 255, 255, 0.9);
+  --wheel-label: #1f6fa3;
+  --center-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.8), rgba(200, 230, 255, 0.6));
+  --logo-color: #1f6fa3;
+  --accent: #0094ff;
+}
+
+body[data-skin='ice'] .device {
+  backdrop-filter: blur(3px) saturate(1.3);
+  -webkit-backdrop-filter: blur(3px) saturate(1.3);
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
+}
+
+body[data-skin='ice'] .guts {
+  opacity: 1;
+}
+
+body[data-skin='ice'] .wheel,
+body[data-skin='ice'] .center {
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+
+body[data-skin='ice'] .brand-name,
+body[data-skin='ice'] .brand-mark {
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.9);
+}
+
+/* ------------------------------------------------------------ skin switch animation */
+.device,
+.wheel,
+.center,
+.bg-holo {
+  transition: background 0.4s, box-shadow 0.4s;
+}

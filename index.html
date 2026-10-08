@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content" />
+    <meta name="theme-color" content="#c9d3e0" />
+    <meta name="description" content="Scroll Wheel Radio — a Y2K click-wheel music player for your browser. Spin the wheel, play music from YouTube." />
+    <title>Scroll Wheel Radio</title>
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&family=Rubik+Bubbles&family=Silkscreen:wght@400;700&family=VT323&display=swap"
+    />
+    <link rel="preconnect" href="https://www.youtube.com" />
+    <link rel="preconnect" href="https://i.ytimg.com" />
+
+    <link rel="stylesheet" href="./src/style.css" />
+    <link rel="stylesheet" href="./src/skins.css" />
+  </head>
+  <body data-skin="chrome">
+    <!-- MySpace-era background -->
+    <div class="bg" aria-hidden="true">
+      <div class="bg-holo"></div>
+      <div class="bg-grid"></div>
+      <div class="bg-sparkles" id="sparkles"></div>
+      <div class="bg-word bg-word-1">★ spin it ★</div>
+      <div class="bg-word bg-word-2">2000 4ever</div>
+      <div class="bg-badge">
+        <span>visits</span>
+        <b id="visitors">000000</b>
+      </div>
+    </div>
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>✦ welcome 2 scroll wheel radio ✦ spin the wheel ✦ thx 4 stopping by ✦ add me as a friend ✦ now playing: ur fav song ✦</span>
+        <span>✦ welcome 2 scroll wheel radio ✦ spin the wheel ✦ thx 4 stopping by ✦ add me as a friend ✦ now playing: ur fav song ✦</span>
+      </div>
+    </div>
+
+    <main class="stage">
+      <div class="device-wrap" id="device-wrap">
+        <div class="device" id="device">
+          <!-- Only visible on the see-through "Translucent Ice" skin -->
+          <div class="guts" aria-hidden="true">
+            <div class="guts-board"></div>
+            <div class="guts-battery"><span>3.7V</span></div>
+            <div class="guts-chip"></div>
+            <div class="guts-disk"></div>
+            <div class="guts-ribbon"></div>
+          </div>
+
+          <div class="stickers" aria-hidden="true">
+            <span class="sticker sticker-star">★</span>
+            <span class="sticker sticker-y2k">Y2K</span>
+            <span class="sticker sticker-heart">♥</span>
+            <span class="sticker sticker-smile">:)</span>
+          </div>
+
+          <div class="bezel">
+            <div class="screen" id="screen">
+              <div class="titlebar">
+                <span class="tb-play" id="tb-play" aria-hidden="true"></span>
+                <span class="tb-title" id="tb-title">Scroll Wheel</span>
+                <span class="tb-right">
+                  <span class="tb-offline" id="tb-offline" title="Offline">⌁</span>
+                  <span class="tb-batt" id="tb-batt" aria-hidden="true"><i id="tb-batt-level"></i></span>
+                </span>
+              </div>
+              <div class="content" id="content">
+                <div class="panes" id="panes" aria-live="polite"></div>
+                <!-- The YouTube player stays in one place in the DOM (moving an iframe reloads it).
+                     Now Playing positions it with CSS; it is never smaller than 200×200. -->
+                <div class="yt-wrap" id="yt-wrap"><div id="yt-player"></div></div>
+                <div class="splash" id="splash">
+                  <div class="splash-logo">
+                    <span class="splash-mark">★</span>
+                    <span class="splash-name">scroll<br />wheel<br />radio</span>
+                  </div>
+                  <div class="splash-tap">tap the wheel to start</div>
+                </div>
+              </div>
+              <div class="glare" aria-hidden="true"></div>
+            </div>
+          </div>
+
+          <div class="brand" aria-label="Scroll Wheel Radio">
+            <span class="brand-mark" aria-hidden="true">★</span>
+            <span class="brand-name">scroll wheel radio</span>
+          </div>
+
+          <div class="wheel" id="wheel" role="group" aria-label="Click wheel: drag in a circle to scroll">
+            <span class="wl wl-menu" data-zone="menu">MENU</span>
+            <span class="wl wl-next" data-zone="next" id="wl-next"></span>
+            <span class="wl wl-play" data-zone="playPause" id="wl-play"></span>
+            <span class="wl wl-prev" data-zone="prev" id="wl-prev"></span>
+            <button class="center" id="center" type="button" aria-label="Select (hold for more)"></button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <div class="toasts" id="toasts" aria-live="assertive"></div>
+
+    <noscript><p class="noscript">Scroll Wheel Radio needs JavaScript turned on.</p></noscript>
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>
