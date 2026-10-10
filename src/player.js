@@ -166,6 +166,15 @@ class Player extends EventTarget {
     this.loadCurrent(true);
   }
 
+  /** Play a position in the current order without rebuilding a shuffled queue. */
+  playQueuePosition(position) {
+    if (!Number.isInteger(position) || position < 0 || position >= this.order.length) return false;
+    this.pos = position;
+    this.errorStreak = 0;
+    this.loadCurrent(true);
+    return true;
+  }
+
   /** Play one song by itself (e.g. a search result). */
   playSong(song) {
     this.playQueue([song], 0);

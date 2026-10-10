@@ -1,0 +1,19 @@
+{
+  "name": "Scroll Wheel Radio",
+  "short_name": "Scroll Wheel",
+  "description": "A Y2K click-wheel music player for your browser.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#c9d3e0",
+  "theme_color": "#c9d3e0",
+  "icons": [
+    {
+      "src": "./app-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -15,9 +15,11 @@
 
 A Y2K, Gen Z–flavored music player for the browser that looks and works like a classic click-wheel MP3 player. Spin the wheel to scroll, click to pick, and play music from YouTube. Works with a mouse, a trackpad, a keyboard and touch screens.
 
-- Vite + vanilla JavaScript + plain CSS (no UI libraries)
+- Vite + React for the app shell, with the player experience and behavior modules in JavaScript
 - YouTube IFrame Player API for playback, YouTube Data API v3 for search
 - Playlists, settings and recently played are saved in your browser (localStorage)
+- Installable app shell with offline access to the interface (music streaming still needs internet)
+- Opens directly into the click-wheel player; the welcome message appears on the iPod screen at startup
 - Deploys as a static site (Vercel, Netlify, GitHub Pages)
 
 ---
@@ -39,11 +41,11 @@ A drag that starts on MENU, ⏮, ⏭ or ▶❚❚ still scrolls; it only counts 
 
 ## Menus
 
-- **Music** — Playlists, Songs (A–Z), Artists, Cover Flow, Recently Played, Search, Add from Link
+- **Music** — Playlists, Songs (A–Z), Artists, Cover Flow, Recently Played, Up Next, Search, Add from Link
 - **Shuffle Songs**
 - **Now Playing**
 - **Extras** — Clock, Stopwatch, Brick Breaker (spin to move the paddle)
-- **Settings** — Skins, Click Sound, Backlight, Shuffle, Repeat, About, Reset
+- **Settings** — Skins, Save as App, Click Sound, Backlight, Shuffle, Repeat, About, Reset
 
 Skins: Chrome Silver, Bubblegum Pink, Frosted Lime, Midnight Glitter, Translucent Ice (see-through shell).
 
@@ -61,6 +63,16 @@ npm run dev
 Open the address it prints (usually http://localhost:5173).
 
 To make a production build: `npm run build` (output goes to `dist/`), then `npm run preview` to test it.
+The iPod player opens directly at `/`.
+
+## Save the player as an app
+
+Deploy over HTTPS, open the player, then:
+
+- **iPhone / iPad:** Open the player in Safari, tap **Share → Add to Home Screen → Add**, then launch it from the new home-screen icon. iOS does not provide the same install prompt as Chrome.
+- **Android / desktop:** In a supported browser, use its install icon or menu and choose **Install app** / **Add to Home screen**. The in-player **Settings → Save as App** page also offers the browser install prompt when available.
+
+The service worker caches the app interface and same-origin assets so the shell can open offline after its first visit. YouTube search and streaming require an internet connection; the service worker does not cache YouTube media. Installation requires HTTPS (localhost is supported for development).
 
 ### Add your YouTube API key (optional)
 
@@ -123,9 +135,15 @@ Using the command line instead: `npx vercel` (first deploy), then `npx vercel --
 ## Project structure
 
 ```
-index.html          page + device markup
-public/favicon.svg  icon
-src/main.js         start-up: scaling, wheel + keyboard wiring, splash, backlight, battery, offline
+index.html          React/Vite app document
+src/main.jsx        React entry point
+src/App.jsx         React app shell for the iPod player
+public/app-icon.svg install and home-screen icon
+public/favicon.svg  browser tab icon
+public/manifest.webmanifest PWA identity, display mode and start URL
+public/sw.js        offline cache for the app shell and same-origin assets
+src/main.js         existing player start-up: scaling, wheel + keyboard wiring, splash, backlight, battery, offline
+src/install.js      native browser install prompt management
 src/wheel.js        click wheel: Pointer Events angle math, buttons, hold, mouse wheel
 src/menus.js        screen navigation + transitions, lists, wheel keyboard, Cover Flow, every menu
 src/nowplaying.js   Now Playing screen (cover / video view, volume, scrubbing)

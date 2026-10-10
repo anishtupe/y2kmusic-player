@@ -7,6 +7,7 @@ import * as yt from './youtube.js';
 import { player } from './player.js';
 import { SKINS, applySkin } from './skins.js';
 import { setClickSound } from './sound.js';
+import { canPromptInstall, promptInstall } from './install.js';
 import { ClockView, StopwatchView, BrickView } from './extras.js';
 
 const SLIDE_MS = 240;
@@ -712,6 +713,25 @@ export function buildMenus(ctx) {
     });
   }
 
+  function queueView() {
+    return list({
+      title: 'Up Next',
+      live: true,
+      empty: 'Nothing in the queue yet. Play a playlist or add songs from Music.',
+      items: () => {
+        const songs = player.order.map((index) => player.queue[index]).filter(Boolean);
+        return songs.map((song, index) => ({
+          label: song.song,
+          sub: song.artist,
+          right: player.current?.id === song.id ? 'Now' : null,
+          action: () => {
+            if (player.playQueuePosition(index)) ctx.openNowPlaying();
+          },
+        }));
+      },
+    });
+  }
+
   function searchView() {
     if (!yt.hasApiKey()) {
       return list({
@@ -830,6 +850,7 @@ export function buildMenus(ctx) {
         { label: 'Artists', arrow: true, action: () => nav.push(artistsView()) },
         { label: 'Cover Flow', arrow: true, action: () => nav.push(new CoverFlowView(ctx)) },
         { label: 'Recently Played', arrow: true, action: () => nav.push(recentView()) },
+        { label: 'Up Next', arrow: true, action: () => nav.push(queueView()) },
         { label: 'Search', arrow: true, action: () => nav.push(searchView()) },
         { label: 'Add from Link', arrow: true, action: () => nav.push(linkView()) },
       ],
@@ -857,6 +878,42 @@ export function buildMenus(ctx) {
     [30, '30 sec'],
     [60, '1 min'],
   ];
+
+  function installHelpView() {
+    const ios = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    const standalone = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+    return list({
+      title: 'Save as App',
+      items: [
+        { label: standalone ? 'Already running as an app' : 'Add the player to your Home Screen', cls: 'note' },
+        ...(ios
+          ? [
+              { label: '1. Open this page in Safari', cls: 'note' },
+              { label: '2. Tap Share (square + arrow)', cls: 'note' },
+              { label: '3. Choose Add to Home Screen', cls: 'note' },
+              { label: '4. Tap Add, then launch its icon', cls: 'note' },
+            ]
+          : [
+              { label: 'Use your browser menu or install icon', cls: 'note' },
+              { label: 'Choose Install app / Add to Home screen', cls: 'note' },
+              {
+                label: 'Install app (when available)',
+                action: async () => {
+                  try {
+                    const installed = await promptInstall();
+                    if (installed) toast('App install started ✦', 'ok');
+                    else if (!canPromptInstall()) toast('Use the browser menu to install this app.', 'info', 3500);
+                  } catch (error) {
+                    console.error('Could not start app installation:', error);
+                    toast('The browser could not install the app. Try its menu instead.', 'error', 4000);
+                  }
+                },
+              },
+            ]),
+        { label: 'The player shell can open offline; YouTube music still needs internet.', cls: 'note' },
+      ],
+    });
+  }
 
   function skinsView() {
     return list({
@@ -886,6 +943,7 @@ export function buildMenus(ctx) {
         const re = () => v.refresh();
         return [
           { label: 'Skins', arrow: true, action: () => nav.push(skinsView()) },
+          { label: 'Save as App', arrow: true, action: () => nav.push(installHelpView()) },
           {
             label: 'Click Sound',
             right: st.clickSound ? 'On' : 'Off',
@@ -1003,6 +1061,7 @@ export function buildMenus(ctx) {
         },
       },
       { label: 'Now Playing', arrow: true, action: () => ctx.openNowPlaying(true) },
+      { label: 'Up Next', arrow: true, action: () => nav.push(queueView()) },
       { label: 'Extras', arrow: true, action: () => nav.push(extrasView()) },
       { label: 'Settings', arrow: true, action: () => nav.push(settingsView()) },
     ],

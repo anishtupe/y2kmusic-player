@@ -8,6 +8,7 @@ import { Navigator, buildMenus } from './menus.js';
 import { NowPlayingView } from './nowplaying.js';
 import { applySkin } from './skins.js';
 import { unlockAudio, click, setClickSound } from './sound.js';
+import './install.js';
 import { toast, ICON } from './ui.js';
 import { sparkles, starTrail } from './fx.js';
 
@@ -91,6 +92,17 @@ const ctx = {
 const { main } = buildMenus(ctx);
 nav.setRoot(main);
 
+if ('serviceWorker' in navigator && window.isSecureContext) {
+  navigator.serviceWorker.register(new URL('./sw.js', document.baseURI)).catch((error) => {
+    console.error('Could not register the offline app shell:', error);
+    toast('App install/offline support could not be enabled in this browser.', 'error', 5000);
+  });
+}
+
+window.addEventListener('swrappinstalled', () => {
+  toast('Scroll Wheel Radio installed ✦', 'ok');
+});
+
 // ---------------------------------------------------------------------------
 // Backlight: dim the screen after a while without input.
 
@@ -165,6 +177,7 @@ const actions = {
   },
   any(name) {
     backlight.poke();
+    if (name === 'down' || name === 'key') unlockAudio();
     if (splashOn) {
       if (name === 'down' || name === 'key') dismissSplash();
       return false;

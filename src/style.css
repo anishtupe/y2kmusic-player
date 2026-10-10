@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&display=swap');
+
 /* style.css — layout of the page, the device, the screen and every screen view.
    Colors that change per skin are CSS variables defined in skins.css. */
 
@@ -12,9 +14,9 @@
 :root {
   --scale: 1;
   --yt-size: 200px;
-  --font-ui: 'Nunito', 'Trebuchet MS', system-ui, sans-serif;
-  --font-bubble: 'Rubik Bubbles', 'Nunito', system-ui, sans-serif;
-  --font-pixel: 'Silkscreen', 'VT323', ui-monospace, monospace;
+  --font-ui: 'Chicago', 'Geneva', 'Pixelify Sans', 'Trebuchet MS', system-ui, sans-serif;
+  --font-bubble: var(--font-ui);
+  --font-pixel: var(--font-ui);
   --font-lcd: 'VT323', ui-monospace, monospace;
   --hl: linear-gradient(180deg, #7cc4ff 0%, #3a9bf2 45%, #1a74d8 55%, #2f8ef0 100%);
   --screen-w: 304px;
@@ -251,13 +253,15 @@ svg {
   border-radius: 38px 38px 46px 46px;
   background: var(--body-bg);
   box-shadow:
-    inset 0 2px 0 rgba(255, 255, 255, 0.9),
-    inset 0 -3px 6px rgba(0, 0, 0, 0.18),
-    inset 2px 0 0 rgba(255, 255, 255, 0.5),
-    inset -2px 0 0 rgba(0, 0, 0, 0.08),
+    inset 0 2px 0 rgba(255, 255, 255, 0.95),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.55),
+    inset 0 -5px 8px rgba(0, 0, 0, 0.2),
+    inset 3px 0 2px rgba(255, 255, 255, 0.45),
+    inset -3px 0 3px rgba(0, 0, 0, 0.1),
     0 1px 0 1px var(--body-edge),
-    0 24px 50px rgba(30, 10, 60, 0.45),
-    0 6px 14px rgba(30, 10, 60, 0.3);
+    0 3px 0 2px rgba(255, 255, 255, 0.42),
+    0 25px 48px rgba(30, 10, 60, 0.42),
+    0 7px 15px rgba(30, 10, 60, 0.28);
   touch-action: none;
   user-select: none;
   -webkit-user-select: none;
@@ -270,9 +274,53 @@ svg {
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background: linear-gradient(115deg, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 32%, rgba(255, 255, 255, 0) 70%, rgba(255, 255, 255, 0.25) 100%);
+  background:
+    linear-gradient(115deg, rgba(255, 255, 255, 0.58) 0%, rgba(255, 255, 255, 0) 30%, rgba(255, 255, 255, 0) 68%, rgba(255, 255, 255, 0.25) 100%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.12), transparent 18%, transparent 84%, rgba(31, 41, 58, 0.08));
   pointer-events: none;
   z-index: 0;
+}
+
+.hardware {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hardware-volume {
+  position: absolute;
+  left: -3px;
+  top: 92px;
+  width: 4px;
+  height: 48px;
+  border-radius: 3px 0 0 3px;
+  background: linear-gradient(90deg, #697587, #f9fbff 45%, #8d9aae);
+  box-shadow: 0 1px 2px #343d4d66;
+}
+
+.hardware-lock {
+  position: absolute;
+  right: -2px;
+  top: 86px;
+  width: 4px;
+  height: 25px;
+  border-radius: 0 3px 3px 0;
+  background: linear-gradient(90deg, #7a879a, #f8faff 55%, #8794a7);
+  box-shadow: 0 1px 2px #343d4d66;
+}
+
+.hardware-dock {
+  position: absolute;
+  left: 50%;
+  bottom: 5px;
+  width: 34px;
+  height: 5px;
+  translate: -50% 0;
+  border: 1px solid rgba(65, 76, 93, 0.65);
+  border-radius: 4px;
+  background: linear-gradient(180deg, #485366, #aeb8c7);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.65);
 }
 
 /* see-through internals (only shown by the Translucent Ice skin) */
@@ -1393,9 +1441,17 @@ body.offline .tb-offline {
 }
 
 .splash-name {
-  font: 400 26px/0.95 var(--font-bubble);
+  font: 700 25px/0.95 var(--font-ui);
+  letter-spacing: 0.02em;
   color: #fff;
   text-shadow: 0 2px 0 #7b4dd6, 0 0 14px rgba(255, 255, 255, 0.8);
+}
+
+.splash-intro {
+  color: #fff;
+  font: 500 10px/1.6 var(--font-ui);
+  text-align: center;
+  text-shadow: 0 1px 3px rgba(42, 24, 90, 0.6);
 }
 
 .splash-tap {
@@ -1453,6 +1509,16 @@ body.offline .tb-offline {
   user-select: none;
   -webkit-user-select: none;
   -webkit-touch-callout: none;
+}
+
+.wheel::before {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border: 1px solid rgba(89, 101, 120, 0.19);
+  border-radius: 50%;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.55), 0 1px 1px rgba(255, 255, 255, 0.6);
+  pointer-events: none;
 }
 
 .wheel.spinning {
@@ -1526,11 +1592,13 @@ body.offline .tb-offline {
   border: 0;
   border-radius: 50%;
   background: var(--center-bg);
+  border: 1px solid rgba(110, 122, 141, 0.28);
   box-shadow:
     inset 0 2px 2px rgba(255, 255, 255, 0.9),
     inset 0 -2px 4px rgba(0, 0, 0, 0.12),
     0 0 0 1px var(--wheel-ring),
-    0 2px 4px rgba(0, 0, 0, 0.18);
+    0 2px 4px rgba(0, 0, 0, 0.18),
+    0 0 0 3px rgba(255, 255, 255, 0.42);
   cursor: pointer;
   touch-action: none;
   -webkit-tap-highlight-color: transparent;

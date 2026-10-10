@@ -3,9 +3,13 @@
 let ctx = null;
 let enabled = true;
 let lastTick = 0;
+let pendingClick = null;
+let resumePending = false;
+let noiseBuffer = null;
 
 export function setClickSound(on) {
   enabled = !!on;
+  if (!enabled) pendingClick = null;
 }
 
 /** Call from a user gesture (tap / key) so browsers allow audio. */
@@ -16,9 +20,25 @@ export function unlockAudio() {
       if (!AC) return;
       ctx = new AC();
     }
-    if (ctx.state === 'suspended') ctx.resume();
+    if (ctx.state !== 'running' && !resumePending) {
+      resumePending = true;
+      ctx.resume().then(
+        () => {
+          resumePending = false;
+          if (ctx?.state === 'running' && pendingClick && enabled) {
+            const kind = pendingClick;
+            pendingClick = null;
+            playClick(kind);
+          }
+        },
+        () => {
+          resumePending = false;
+        }
+      );
+    }
   } catch {
     ctx = null;
+    resumePending = false;
   }
 }
 
@@ -35,17 +55,27 @@ export function click(kind = 'tick') {
       /* ignore */
     }
   }
-  if (!enabled || !ctx || ctx.state !== 'running') return;
+  if (!enabled) return;
+  if (!ctx || ctx.state !== 'running') {
+    pendingClick = kind;
+    unlockAudio();
+    return;
+  }
+  playClick(kind);
+}
 
+function playClick(kind) {
+  if (!ctx || ctx.state !== 'running' || !enabled) return;
   const t = ctx.currentTime;
-  // A burst of filtered noise sounds much more like a plastic click than a beep.
-  const len = Math.floor(ctx.sampleRate * 0.012);
-  const buf = ctx.createBuffer(1, len, ctx.sampleRate);
-  const data = buf.getChannelData(0);
-  for (let i = 0; i < len; i++) data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 3);
+  if (!noiseBuffer) {
+    const len = Math.floor(ctx.sampleRate * 0.012);
+    noiseBuffer = ctx.createBuffer(1, len, ctx.sampleRate);
+    const data = noiseBuffer.getChannelData(0);
+    for (let i = 0; i < len; i++) data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 3);
+  }
 
   const src = ctx.createBufferSource();
-  src.buffer = buf;
+  src.buffer = noiseBuffer;
   const filter = ctx.createBiquadFilter();
   filter.type = 'bandpass';
   filter.frequency.value = kind === 'press' ? 1800 : 3200;
