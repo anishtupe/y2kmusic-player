@@ -1,3 +1,16 @@
+## ✨ Case designs
+
+<p align="center">
+  <img src="docs/images/midnight-glitter.png" alt="Scroll Wheel Radio - Midnight Glitter skin" width="300">
+  &nbsp;&nbsp;
+  <img src="docs/images/chrome-silver.png" alt="Scroll Wheel Radio - Chrome Silver skin" width="300">
+</p>
+
+<p align="center">
+  <em>Midnight Glitter</em> &nbsp; · &nbsp; <em>Chrome Silver</em>
+</p>
+
+
 # ★ Scroll Wheel Radio
 
 A Y2K, Gen Z–flavored music player for the browser that looks and works like a classic click-wheel MP3 player. Spin the wheel to scroll, click to pick, and play music from YouTube. Works with a mouse, a trackpad, a keyboard and touch screens.
